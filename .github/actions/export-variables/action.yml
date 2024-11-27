@@ -16,5 +16,5 @@ runs:
       shell: bash
       run: |
         echo '${{ inputs.vars-json }}' | jq -r --arg prefix "${{ inputs.key-prefix }}" \
-          'to_entries | map(select(.key | startswith($prefix))) | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"'
+          'to_entries | map(select(.key | startswith($prefix))) | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' | bash
     - uses: hmarr/debug-action@v3
