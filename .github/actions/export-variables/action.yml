@@ -1,0 +1,19 @@
+name: Export Variables Action
+description: "Exports secrets starting with a given prefix to the environment."
+
+inputs:
+  key-prefix:
+    description: 'Prefix of keys to export'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Export organization variables with specified prefix
+      shell: bash
+      env:
+        PREFIX: ${{ inputs.key-prefix }}
+      run: |
+        echo "${{ toJSON(secrets) }}" | jq -r --arg prefix "$PREFIX" \
+          'to_entries | map(select(.key | startswith($prefix))) | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"'
+    - uses: hmarr/debug-action@v3
