@@ -15,6 +15,6 @@ runs:
     - name: Export organization variables with specified prefix
       shell: bash
       run: |
-        echo "${{ inputs.vars-json }}" | jq -r --arg prefix "${{ inputs.key-prefix }}" \
+        echo '${{ inputs.vars-json }}' | jq -r --arg prefix "${{ inputs.key-prefix }}" \
           'to_entries | map(select(.key | startswith($prefix))) | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"'
     - uses: hmarr/debug-action@v3
