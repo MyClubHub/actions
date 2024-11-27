@@ -5,6 +5,9 @@ inputs:
   key-prefix:
     description: 'Prefix of keys to export'
     required: true
+  vars-json:
+    description: variables converted to json
+    required: true
 
 runs:
   using: "composite"
